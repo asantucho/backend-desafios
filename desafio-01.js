@@ -5,9 +5,11 @@ class ProductManager {
     this.products = [];
   }
   addProduct(title, description, price, thumbnail, stock, id) {
-    const existingProduct = this.products.find((p) => p.id === id);
+    const existingProduct =
+      this.products.find((p) => p.id === id) ||
+      this.products.find((p) => p.title === title);
     if (existingProduct) {
-      console.log('this product is already in array');
+      console.log('this product id is already in array');
     } else {
       const product = {
         title,
