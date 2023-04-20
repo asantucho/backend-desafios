@@ -51,10 +51,55 @@ class ProductManager {
       if (fs.existsSync(this.path)) {
         const products = await fs.promises.readFile(this.path, 'utf-8');
         const productsJs = JSON.parse(products);
-        return productsJs.find((product) => product.id === parseInt(id));
+        return productsJs.find((product) => product.id === id);
       } else {
         return null;
       }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async updateProductById(id, updatedProduct) {
+    try {
+      const product = await this.getProductsById(id);
+      if (product) {
+        product.title = updatedProduct.title ?? product.title;
+        product.description = updatedProduct.description ?? product.description;
+        product.price = updatedProduct.price ?? product.price;
+        product.thumbnail = updatedProduct.imageUrl ?? product.imageUrl;
+        product.stock = updatedProduct.stock ?? product.stock;
+        product.code = updatedProduct.code ?? product.code;
+
+        const products = await fs.promises.readFile(this.path, 'utf-8');
+        const productsJs = JSON.parse(products);
+        const updatedProducts = productsJs.map((prod) => {
+          if (prod.id === id) {
+            return product;
+          }
+          return prod;
+        });
+        await fs.promises.writeFile(
+          this.path,
+          JSON.stringify(updatedProducts, null, 2)
+        );
+        return product;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async deleteProductById(id) {
+    try {
+      const products = await fs.promises.readFile(this.path, 'utf-8');
+      const productsJs = JSON.parse(products);
+      const deletedProduct = productsJs.find((product) => product.id === id);
+      const remainingProducts = productsJs.filter(
+        (product) => product.id !== id
+      );
+      await fs.promises.writeFile(this.path, JSON.stringify(remainingProducts));
+      return deletedProduct;
     } catch (error) {
       console.log(error);
     }
@@ -76,12 +121,21 @@ const test1 = async () => {
   );
   const updatedGet = await productManager.getProducts();
   console.log('segunda consulta', updatedGet);
-  const productById = await productManager.getProductsById(10);
+  const productById = await productManager.getProductsById(25);
   if (productById) {
-    console.log(`producto encontrado: ${productById}`);
+    console.log('producto encontrado:');
+    console.log(productById);
   } else {
     console.log('error, producto no encontrado');
   }
+  const updateMethod = await productManager.updateProductById(12, {
+    title: 'testing the update method',
+  });
+  console.log('producto actualizado:');
+  console.log(updateMethod);
+  const deleteMethod = await productManager.deleteProductById(4);
+  console.log('producto eliminado: ');
+  console.log(deleteMethod);
 };
 
 test1();
