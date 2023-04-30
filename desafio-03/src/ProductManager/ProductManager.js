@@ -71,10 +71,7 @@ export class ProductManager {
           }
           return prod;
         });
-        await fs.promises.writeFile(
-          this.path,
-          JSON.stringify(updatedProducts, null, 2)
-        );
+        await fs.promises.writeFile(this.path, JSON.stringify(updatedProducts));
         return product;
       } else {
         return null;
