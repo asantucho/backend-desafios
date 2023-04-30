@@ -1,25 +1,18 @@
-// clase Product Manager
+import fs from 'fs';
 
-const fs = require('fs');
-
-class ProductManager {
+export class ProductManager {
   constructor() {
     this.path = 'products.json';
   }
-  async createProduct(title, description, price, thumbnail, stock, code, id) {
+  async createProduct(product) {
     try {
       const newId = await this.#newId();
-      const product = {
-        title,
-        description,
-        price,
-        thumbnail,
-        stock,
-        code,
+      const newProduct = {
+        ...product,
         id: newId + 1,
       };
       const productsFile = await this.getProducts();
-      productsFile.push(product);
+      productsFile.push(newProduct);
       await fs.promises.writeFile(this.path, JSON.stringify(productsFile));
     } catch (error) {
       console.log(error);
@@ -105,5 +98,3 @@ class ProductManager {
     }
   }
 }
-
-export default ProductManager;
