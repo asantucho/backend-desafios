@@ -9,9 +9,11 @@ app.use(express.urlencoded({ extended: true }));
 const productManager = new ProductManager('./products.json');
 
 app.get('/products', async (req, res) => {
+  const limit = req.query.limit ? parseInt(req.query.limit) : null;
   try {
     const products = await productManager.getProducts();
-    res.status(200).json(products);
+    const limitedProducts = limit ? products.slice(0, limit) : products;
+    res.status(200).json(limitedProducts);
   } catch (error) {
     res.status(404).json({ message: error.message });
     console.log(error);
