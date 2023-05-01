@@ -11,7 +11,7 @@ const productManager = new ProductManager('./products.json');
 app.get('/products', async (req, res) => {
   const limit = req.query.limit ? parseInt(req.query.limit) : null;
   try {
-    const products = await productManager.getProducts();
+    const products = await productManager.getProducts(limit);
     const limitedProducts = limit ? products.slice(0, limit) : products;
     res.status(200).json(limitedProducts);
   } catch (error) {
@@ -42,6 +42,23 @@ app.post('/products', async (req, res) => {
     res.json(newProduct);
   } catch (error) {
     res.status(404).json({ message: error.message });
+  }
+});
+
+app.put('/products/:id', async (req, res) => {
+  try {
+    const product = req.body;
+    const { id } = req.params;
+    const selectedProduct = await productManager.getProductsById(Number(id));
+    if (selectedProduct) {
+      await productManager.updateProductById(Number(id), product);
+      res.status(200).send('product updated successfully');
+    } else {
+      res.status(404).send('product not found');
+    }
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+    console.log(error);
   }
 });
 

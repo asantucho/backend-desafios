@@ -26,12 +26,16 @@ export class ProductManager {
     });
     return initialId;
   }
-  async getProducts() {
+  async getProducts(limit = null) {
     try {
       if (fs.existsSync(this.path)) {
         const products = await fs.promises.readFile(this.path, 'utf-8');
         const productsJs = JSON.parse(products);
-        return productsJs;
+        if (limit) {
+          return productsJs.slice(0, limit);
+        } else {
+          return productsJs;
+        }
       } else {
         return [];
       }
@@ -59,7 +63,7 @@ export class ProductManager {
         product.title = updatedProduct.title ?? product.title;
         product.description = updatedProduct.description ?? product.description;
         product.price = updatedProduct.price ?? product.price;
-        product.thumbnail = updatedProduct.imageUrl ?? product.imageUrl;
+        product.thumbnail = updatedProduct.thumbnail ?? product.thumbnail;
         product.stock = updatedProduct.stock ?? product.stock;
         product.code = updatedProduct.code ?? product.code;
 
