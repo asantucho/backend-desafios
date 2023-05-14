@@ -66,7 +66,7 @@ export const updatedProductById = async (id, updatedProduct) => {
       product.title = updatedProduct.title ?? product.title;
       product.description = updatedProduct.description ?? product.description;
       product.price = updatedProduct.price ?? product.price;
-      product.thumbnail = updatedProduct.imageUrl ?? product.imageUrl;
+      product.thumbnail = updatedProduct.thumbnail ?? product.thumbnail;
       product.stock = updatedProduct.stock ?? product.stock;
       product.code = updatedProduct.code ?? product.code;
 
