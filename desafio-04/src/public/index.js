@@ -11,8 +11,7 @@ const button = document.querySelector('#button');
 const productsContainer = document.querySelector('#productsContainer');
 const productsList = document.querySelector('#productsList');
 
-form.onSubmit = (event) => {
-  event.preventDefault();
+button.addEventListener('click', () => {
   const product = {
     name: inputProductName.value,
     description: inputProductDescription.value,
@@ -26,7 +25,7 @@ form.onSubmit = (event) => {
   inputProductCode.value = '';
   inputProductStock.value = '';
   inputProductPrice.value = '';
-};
+});
 
 socketClient.on('products', (data) => {
   const productsRender = data.map((prod) => {
