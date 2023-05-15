@@ -6,7 +6,7 @@ import {
   getProductsById,
   updatedProductById,
 } from '../managers/productManager.js';
-import { getIo } from '../../socket.js';
+import { getIo } from '../socket.js';
 
 const productsRouter = Router();
 
