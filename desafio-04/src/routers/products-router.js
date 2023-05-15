@@ -5,11 +5,12 @@ import {
   getProducts,
   getProductsById,
   updatedProductById,
-} from '../manager/productManager.js';
+} from '../managers/productManager.js';
+import { getIo } from '../../socket.js';
 
 const productsRouter = Router();
 
-router.get('/', async (req, res) => {
+productsRouter.get('/', async (req, res) => {
   const limit = req.query.limit ? parseInt(req.query.limit) : null;
   try {
     const products = await getProducts(limit);
@@ -21,7 +22,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:prodId', async (req, res) => {
+productsRouter.get('/:prodId', async (req, res) => {
   try {
     const { prodId } = req.params;
     const product = await getProductsById(Number(prodId));
@@ -36,10 +37,12 @@ router.get('/:prodId', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+productsRouter.post('/', async (req, res) => {
   try {
     const product = req.body;
     const newProduct = await createProduct(product);
+    const io = getIo();
+    io.emit('products', await getProducts());
     res.json(newProduct);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -47,7 +50,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:prodId', async (req, res) => {
+productsRouter.put('/:prodId', async (req, res) => {
   try {
     const product = req.body;
     const { prodId } = req.params;
@@ -64,7 +67,7 @@ router.put('/:prodId', async (req, res) => {
   }
 });
 
-router.delete('/:prodId', async (req, res) => {
+productsRouter.delete('/:prodId', async (req, res) => {
   try {
     const { prodId } = req.params;
     const products = await getProducts();

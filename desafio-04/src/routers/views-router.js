@@ -4,10 +4,10 @@ import { __dirname } from '../path.js';
 const viewsRouter = Router();
 
 viewsRouter.get('/', (req, res) => {
-  res.render(__dirname + '/views/layouts/main');
+  res.render('home');
 });
 
-viewsRouter.get('/realTimeProducts', (req, res) => {
-  res.render(__dirname + '/views/partials/products');
+viewsRouter.get('/realtimeproducts', (req, res) => {
+  res.render('realtimeproducts');
 });
 export default viewsRouter;

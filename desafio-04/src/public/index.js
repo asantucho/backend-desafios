@@ -11,7 +11,29 @@ const button = document.querySelector('#button');
 const productsContainer = document.querySelector('#productsContainer');
 const productsList = document.querySelector('#productsList');
 
-button.addEventListener('click', () => {
+const getProducts = async () => {
+  try {
+    if (productsContainer) {
+      const response = await fetch('/products', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const products = await response.json();
+      const productsRender = products.map((prod) => {
+        return `<li>${prod.id} || ${prod.name} || ${prod.description} || ${prod.price}</li>`;
+      });
+      productsList.innerHTML = productsRender;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+button?.addEventListener('click', async (event) => {
+  event.preventDefault();
   const product = {
     name: inputProductName.value,
     description: inputProductDescription.value,
@@ -19,6 +41,13 @@ button.addEventListener('click', () => {
     stock: inputProductStock.value,
     price: inputProductPrice.value,
   };
+  await fetch('/products', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(product),
+  });
   socketClient.emit('newProduct', product);
   inputProductName.value = '';
   inputProductDescription.value = '';
@@ -33,3 +62,5 @@ socketClient.on('products', (data) => {
   });
   productsList.innerHTML = productsRender;
 });
+
+getProducts();
