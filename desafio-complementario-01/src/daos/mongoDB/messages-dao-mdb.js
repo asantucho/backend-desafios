@@ -3,48 +3,51 @@ import { messageModel } from './models/message-model';
 export default class MessagesDaoMongo {
   async createMessage() {
     try {
-      const response = await messageModel.create();
-      return response;
+      const newMessage = await messageModel.create();
+      return newMessage;
     } catch (error) {
       console.log(error);
     }
   }
   async getAllMessages() {
     try {
-      const response = await messageModel.find({});
-      return response;
+      const messages = await messageModel.find({});
+      return messages;
     } catch (error) {
       console.log(error);
     }
   }
   async getMessageById(id) {
     try {
-      const response = await messageModel.findById(id);
-      if (!response) throw new Error('message not found');
-      return response;
+      const message = await messageModel.findById(id);
+      if (!message) throw new Error('message not found');
+      return message;
     } catch (error) {
       console.log(error);
     }
   }
   async updateMessage(object, id) {
     try {
-      await messageModel.updateOne(object, { _id: id });
-      console.log(`message with id ${id} updated successfully`);
+      const updatedMessage = await messageModel.updateOne(object, { _id: id });
+      return updatedMessage;
     } catch (error) {
       console.log(error);
     }
   }
   async deleteMessageById(id) {
     try {
-      await messageModel.findByIdAndDelete(id);
-      console.log(`message with id ${id} deleted successfully`);
+      const deletedMessage = await messageModel.findByIdAndDelete(id);
+      return deletedMessage;
     } catch (error) {
       console.log(error);
     }
   }
   async deleteAllMessages() {
     try {
-      await messageModel.deleteMany({});
-    } catch (error) {}
+      const emptyChat = await messageModel.deleteMany({});
+      return emptyChat;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
