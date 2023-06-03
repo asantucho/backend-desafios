@@ -6,9 +6,10 @@ const products = new ProductsDaoMongo();
 export default class CartsDaoMongo {
   async createCart() {
     try {
-      const response = await cartsModel.create();
+      const cart = await cartsModel.create();
       console.log(`cart ${response} created successfully`);
-      return response;
+      cart.save();
+      return cart;
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +56,9 @@ export default class CartsDaoMongo {
           productToAdd.quantity++;
         }
         console.log('product added to the cart successfully!');
+        productToAdd.save();
       }
+
       return productToAdd;
     } catch (error) {
       console.log(error);

@@ -6,11 +6,11 @@ import cartRouter from './routers/carts-router.js';
 import messagesRouter from './routers/messages-router.js';
 import viewsRouter from './routers/views-router.js';
 import { init as initSocket } from './socket.js';
+import './db/database.js';
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/public'));
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');

@@ -3,8 +3,8 @@ import { productsModel } from './models/products-model.js';
 export default class ProductsDaoMongo {
   async createProduct(object) {
     try {
-      const response = await productsModel.create(object);
-      return response;
+      const newProduct = await productsModel.create(object);
+      return newProduct;
     } catch (error) {
       console.log(error);
     }
@@ -28,8 +28,9 @@ export default class ProductsDaoMongo {
   }
   async updateProduct(object, id) {
     try {
-      await productsModel.updateOne(object, { _id: id });
+      const updatedProduct = await productsModel.updateOne(object, { _id: id });
       console.log(`product with id ${id} updated successfully`);
+      updatedProduct.save();
     } catch (error) {
       console.log(error);
     }
