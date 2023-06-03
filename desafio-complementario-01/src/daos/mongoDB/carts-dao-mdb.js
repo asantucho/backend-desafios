@@ -38,7 +38,7 @@ export default class CartsDaoMongo {
       console.log(error);
     }
   }
-  async addToCart(prodId, cartId) {
+  async addToCart(cartId, prodId) {
     try {
       const selectedProduct = await products.getProductById(prodId);
       const selectedCart = await this.getCartById(cartId);

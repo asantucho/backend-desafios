@@ -47,8 +47,8 @@ export const deleteCartByIdController = async (req, res, next) => {
 
 export const addToCartController = async (req, res, next) => {
   try {
-    const { prodId, cartId } = req.params;
-    const addedProduct = await addToCartService(prodId, cartId);
+    const { cartId, prodId } = req.params;
+    const addedProduct = await addToCartService(cartId, prodId);
     res.json(addedProduct);
   } catch (error) {
     next(error);

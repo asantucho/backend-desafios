@@ -38,9 +38,9 @@ export const deleteCartByIdService = async (id) => {
   }
 };
 
-export const addToCartService = async (prodId, cartId) => {
+export const addToCartService = async (cartId, prodId) => {
   try {
-    const addedProduct = await carts.addToCart(prodId, cartId);
+    const addedProduct = await carts.addToCart(cartId, prodId);
     return addedProduct;
   } catch (error) {
     console.log(error);

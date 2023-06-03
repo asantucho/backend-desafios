@@ -1,5 +1,4 @@
 import express from 'express';
-// import { __dirname } from './path.js';
 // import productsRouter from './router/products-router.js';
 // import cartsRouter from './router/cart-router.js';
 
