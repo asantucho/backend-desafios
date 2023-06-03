@@ -5,7 +5,7 @@ import {
   deleteAllMessagesService,
   deleteMessageByIdService,
   updateMessageService,
-} from '../services/messages-services';
+} from '../services/messages-services.js';
 
 export const createMessageController = async (req, res, next) => {
   try {
