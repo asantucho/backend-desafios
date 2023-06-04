@@ -29,11 +29,14 @@ export default class ProductsDaoMongo {
   }
   async updateProduct(object, id) {
     try {
-      const updatedProduct = await productsModel.updateOne(object, { _id: id });
-      console.log(`product with id ${id} updated successfully`);
-      updatedProduct.save();
+      const updatedProduct = await productsModel.findByIdAndUpdate(id, object, {
+        new: true,
+      });
+      console.log('product dao passed');
+      return updatedProduct;
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
   async deleteProductById(id) {

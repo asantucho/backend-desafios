@@ -49,7 +49,7 @@ export const updateProductController = async (req, res, next) => {
     const { id } = req.params;
     const { title, description, price, stock, thumbnail, code, status } =
       req.body;
-    await getProductByIdController(id);
+    await getProductByIdService(id);
     const updatedProduct = await updateProductService(
       {
         title,
@@ -62,7 +62,8 @@ export const updateProductController = async (req, res, next) => {
       },
       id
     );
-    res.json(updatedProduct);
+    console.log('updated controller passed');
+    return res.json(updatedProduct);
   } catch (error) {
     next(error);
   }

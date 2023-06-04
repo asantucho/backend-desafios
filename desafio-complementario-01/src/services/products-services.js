@@ -27,15 +27,18 @@ export const getProductByIdService = async (id) => {
     return doc;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 
 export const updateProductService = async (object, id) => {
   try {
     const updatedDoc = await productMongo.updateProduct(object, id);
+    console.log('updated product services passed');
     return updatedDoc;
   } catch (error) {
     console.log(error);
+    throw new Error('Error occurred while updating the product');
   }
 };
 
