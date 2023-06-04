@@ -4,11 +4,10 @@ import ProductsDaoMongo from './products-dao-mdb.js';
 const products = new ProductsDaoMongo();
 
 export default class CartsDaoMongo {
-  async createCart() {
+  async createCart(object) {
     try {
-      const cart = await cartsModel.create();
-      console.log(`cart ${response} created successfully`);
-      cart.save();
+      const cart = await cartsModel.create(object);
+      console.log(`cart ${cart} created successfully`);
       return cart;
     } catch (error) {
       console.log(error);
@@ -56,10 +55,7 @@ export default class CartsDaoMongo {
           productToAdd.quantity++;
         }
         console.log('product added to the cart successfully!');
-        productToAdd.save();
       }
-
-      return productToAdd;
     } catch (error) {
       console.log(error);
     }

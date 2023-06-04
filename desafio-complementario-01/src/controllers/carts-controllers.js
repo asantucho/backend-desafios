@@ -8,8 +8,9 @@ import {
 
 export const createCartController = async (req, res, next) => {
   try {
-    const { products } = req.body;
-    const newCart = await createCartService({ products });
+    const cart = { ...req.body };
+    const newCart = await createCartService(cart);
+    console.log(`controller created ${newCart}`);
     res.json(newCart);
   } catch (error) {
     next(error);

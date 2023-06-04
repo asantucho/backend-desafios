@@ -2,9 +2,10 @@ import CartsDaoMongo from '../daos/mongoDB/carts-dao-mdb.js';
 
 const carts = new CartsDaoMongo();
 
-export const createCartService = async () => {
+export const createCartService = async (object) => {
   try {
-    const doc = await carts.createCart();
+    const doc = await carts.createCart(object);
+    console.log('service created ' + doc);
     return doc;
   } catch (error) {
     console.log(error);
