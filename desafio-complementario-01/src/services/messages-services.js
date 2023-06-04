@@ -41,6 +41,7 @@ export const updateMessageService = async (object, id) => {
 export const deleteMessageByIdService = async (id) => {
   try {
     const deletedMessage = await messages.deleteMessageById(id);
+    console.log('estamos en el services');
     return deletedMessage;
   } catch (error) {
     console.log(error);

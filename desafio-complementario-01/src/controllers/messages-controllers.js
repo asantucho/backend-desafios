@@ -49,6 +49,7 @@ export const deleteMessageByIdController = async (req, res, next) => {
   try {
     const { id } = req.params;
     const deletedMessage = await deleteMessageByIdService(id);
+    console.log('llegamos a controler');
     res.json(`${deletedMessage} deleted successfully`);
   } catch (error) {
     next(error);

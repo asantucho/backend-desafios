@@ -13,6 +13,6 @@ messagesRouter.get('/', getAllMessagesController);
 messagesRouter.get('/:id', getMessageByIdController);
 messagesRouter.post('/', createMessageController);
 messagesRouter.delete('/', deleteAllMessagesController);
-messagesRouter.delete(':id', deleteMessageByIdController);
+messagesRouter.delete('/:id', deleteMessageByIdController);
 
 export default messagesRouter;

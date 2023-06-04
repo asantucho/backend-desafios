@@ -37,6 +37,7 @@ export default class MessagesDaoMongo {
   async deleteMessageById(id) {
     try {
       const deletedMessage = await messageModel.findByIdAndDelete(id);
+      console.log('al dao llegamos');
       return deletedMessage;
     } catch (error) {
       console.log(error);
