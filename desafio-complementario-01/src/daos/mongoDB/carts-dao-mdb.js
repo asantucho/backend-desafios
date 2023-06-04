@@ -1,7 +1,5 @@
 import { cartsModel } from './models/carts-model.js';
-import ProductsDaoMongo from './products-dao-mdb.js';
-
-const products = new ProductsDaoMongo();
+import { productsModel } from './models/products-model.js';
 
 export default class CartsDaoMongo {
   async createCart(object) {
@@ -40,22 +38,19 @@ export default class CartsDaoMongo {
   }
   async addToCart(cartId, prodId) {
     try {
-      const selectedProduct = await products.getProductById(prodId);
-      const selectedCart = await this.getCartById(cartId);
-      if (selectedCart && selectedProduct) {
-        const productToAdd = selectedCart.products.find(
-          (product) => product.id === selectedProduct.id
-        );
-        if (!productToAdd) {
-          selectedCart.products.push({
-            id: selectedProduct.id,
-            quantity: 1,
-          });
-        } else {
-          productToAdd.quantity++;
-        }
-        console.log('product added to the cart successfully!');
+      const cart = await cartsModel.findById(cartId);
+      const productToAdd = await productsModel.findById(prodId);
+      const isInCart = cart.products.find(
+        (product) => product.id === productToAdd.prodId
+      );
+      console.log(isInCart);
+      if (!isInCart) {
+        cart.products.push({ prodId, quantity: 1 });
+      } else {
+        isInCart.quantity++;
       }
+      await cart.save();
+      console.log('product added successfully!');
     } catch (error) {
       console.log(error);
     }
