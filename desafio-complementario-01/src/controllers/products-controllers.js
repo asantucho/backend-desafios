@@ -10,15 +10,15 @@ export const createProductsController = async (req, res, next) => {
   try {
     const { title, description, price, stock, thumbnail, code, status } =
       req.body;
-    const newProduct = await createProductService(
+    const newProduct = await createProductService({
       title,
       description,
       price,
       stock,
       thumbnail,
       code,
-      status
-    );
+      status,
+    });
     res.json(newProduct);
   } catch (error) {
     next(error);
