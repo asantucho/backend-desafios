@@ -2,9 +2,9 @@ import MessagesDaoMongo from '../daos/mongoDB/messages-dao-mdb.js';
 
 const messages = new MessagesDaoMongo();
 
-export const createMessageServices = async () => {
+export const createMessageServices = async ({ user, message }) => {
   try {
-    const newMessage = await messages.createMessage();
+    const newMessage = await messages.createMessage({ user, message });
     return newMessage;
   } catch (error) {
     console.log(error);
@@ -13,8 +13,8 @@ export const createMessageServices = async () => {
 
 export const getAllMessagesService = async () => {
   try {
-    const messages = await messages.getAllMessages();
-    return messages;
+    const allMessages = await messages.getAllMessages();
+    return allMessages;
   } catch (error) {
     console.log(error);
   }

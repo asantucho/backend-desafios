@@ -1,4 +1,5 @@
 const socketClient = io();
+console.log('HALAAAAAAA');
 
 //form for products
 
@@ -66,5 +67,3 @@ socketClient.on('products', (data) => {
 });
 
 getProducts();
-
-// chat

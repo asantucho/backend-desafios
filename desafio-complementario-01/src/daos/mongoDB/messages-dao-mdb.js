@@ -1,9 +1,9 @@
 import { messageModel } from './models/message-model.js';
 
 export default class MessagesDaoMongo {
-  async createMessage() {
+  async createMessage({ user, message }) {
     try {
-      const newMessage = await messageModel.create();
+      const newMessage = await messageModel.create({ user, message });
       return newMessage;
     } catch (error) {
       console.log(error);

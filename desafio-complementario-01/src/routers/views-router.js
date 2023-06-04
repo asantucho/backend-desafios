@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 const viewsRouter = Router();
 
-viewsRouter.get('/messages', (req, res) => {
+viewsRouter.get('/chat', (req, res) => {
   res.render('chat');
 });
 
