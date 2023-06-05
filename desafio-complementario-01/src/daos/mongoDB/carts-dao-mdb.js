@@ -39,18 +39,20 @@ export default class CartsDaoMongo {
   async addToCart(cartId, prodId) {
     try {
       const cart = await cartsModel.findById(cartId);
+      console.log('aca vemos el console log de cart ' + cart);
       const productToAdd = await productsModel.findById(prodId);
       console.log('a ver que trae el productToAdd ' + productToAdd);
       const isInCart = cart.products.find(
-        (product) => product.prodId === productToAdd.prodId
+        (product) => product.prodId === productToAdd._id
       );
-      console.log(`aca vemos lo que está agregando ${isInCart}`);
+      console.log(isInCart);
       if (!isInCart) {
         cart.products.push({ prodId, quantity: 1 });
       } else {
         isInCart.quantity++;
       }
-      console.log('antes del save' + isInCart);
+      console.log(isInCart);
+      console.log(cart);
       await cart.save();
       console.log('product added successfully!');
     } catch (error) {
