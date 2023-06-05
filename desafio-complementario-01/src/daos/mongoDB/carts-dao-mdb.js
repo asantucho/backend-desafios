@@ -43,7 +43,7 @@ export default class CartsDaoMongo {
       const productToAdd = await productsModel.findById(prodId);
       console.log('a ver que trae el productToAdd ' + productToAdd);
       const isInCart = cart.products.find(
-        (product) => product.prodId === productToAdd._id
+        (product) => product.prodId === productToAdd._id.toString()
       );
       console.log(isInCart);
       if (!isInCart) {
@@ -53,6 +53,7 @@ export default class CartsDaoMongo {
       }
       console.log(isInCart);
       console.log(cart);
+      await cart.markModified('products');
       await cart.save();
       console.log('product added successfully!');
     } catch (error) {
