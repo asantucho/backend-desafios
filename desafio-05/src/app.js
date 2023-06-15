@@ -3,6 +3,7 @@ import handlebars from 'express-handlebars';
 import { __dirname } from './path.js';
 import productsRouter from './routers/products-router.js';
 import cartRouter from './routers/carts-router.js';
+import usersRouter from './routers/users-router.js';
 import messagesRouter from './routers/messages-router.js';
 import viewsRouter from './routers/views-router.js';
 import { init as initSocket } from './socket.js';
@@ -22,6 +23,7 @@ app.set('view engine', 'handlebars');
 app.use('/', viewsRouter);
 app.use('/products', productsRouter);
 app.use('/carts', cartRouter);
+app.use('/users', usersRouter);
 app.use('/messages', messagesRouter);
 
 const httpServer = app.listen(8080, () => {
