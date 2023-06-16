@@ -12,6 +12,14 @@ import {
   getAllMessagesService,
 } from './services/messages-services.js';
 import './db/database.js';
+import session from 'express-session';
+
+const sessionConfig = {
+  secret: '0303456',
+  cookie: { maxAge: 30000 },
+  saveUninitialized: true,
+  resave: false,
+};
 
 const app = express();
 app.use(express.json());
@@ -20,6 +28,7 @@ app.use(express.static(__dirname + '/public'));
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
+app.use(session(sessionConfig));
 app.use('/', viewsRouter);
 app.use('/products', productsRouter);
 app.use('/carts', cartRouter);
