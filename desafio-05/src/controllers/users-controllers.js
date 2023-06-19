@@ -9,7 +9,6 @@ export const createUserController = async (req, res, next) => {
   try {
     const newUser = await createUserService(req.body);
     if (newUser) {
-      res.json(newUser);
       res.redirect('/login');
     } else {
       res.redirect('/register-error');
@@ -36,10 +35,9 @@ export const logInController = async (req, res, next) => {
     if (user) {
       (req.session.email = email),
         (req.session.password = password),
-        res.json(user);
-      res.redirect('/profile');
+        res.redirect('/welcome');
     } else {
-      res.redirect('/error-login');
+      res.redirect('/login-error');
     }
   } catch (error) {
     next(error);

@@ -30,4 +30,8 @@ viewsRouter.get('/login-error', (req, res) => {
   res.render('error-login');
 });
 
+viewsRouter.get('/welcome', (req, res) => {
+  res.render('welcome');
+});
+
 export default viewsRouter;
