@@ -29,7 +29,7 @@ const storeOptions = {
 const sessionConfig = {
   secret: '0303456',
   cookie: { maxAge: 30000 },
-  saveUninitialized: true,
+  saveUninitialized: false,
   resave: false,
 };
 
