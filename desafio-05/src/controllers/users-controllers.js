@@ -33,9 +33,9 @@ export const logInController = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await logInService(req.body);
     if (user) {
-      (req.session.email = email),
-        (req.session.password = password),
-        res.redirect('/welcome');
+      req.session.email = email;
+      req.session.password = password;
+      res.redirect('/welcome');
     } else {
       res.redirect('/login-error');
     }

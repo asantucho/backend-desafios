@@ -13,6 +13,18 @@ import {
 } from './services/messages-services.js';
 import './db/database.js';
 import session from 'express-session';
+import MongoStore from 'connect-mongo';
+import cookieParser from 'cookie-parser';
+
+const storeOptions = {
+  store: MongoStore.create({
+    mongoUrl:
+      'mongodb+srv://masantucho:masantucho@cluster0.noyiw8q.mongodb.net/desafio-05',
+    crypto: {
+      secret: '0303456',
+    },
+  }),
+};
 
 const sessionConfig = {
   secret: '0303456',
@@ -28,7 +40,8 @@ app.use(express.static(__dirname + '/public'));
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
-app.use(session(sessionConfig));
+app.use(cookieParser());
+app.use(session({ ...sessionConfig, ...storeOptions }));
 app.use('/', viewsRouter);
 app.use('/products', productsRouter);
 app.use('/carts', cartRouter);

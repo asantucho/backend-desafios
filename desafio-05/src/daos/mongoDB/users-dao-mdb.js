@@ -3,7 +3,7 @@ import { usersModel } from './models/users-model.js';
 export default class UsersDaoMongo {
   async createUser(user) {
     try {
-      const { email } = user;
+      const { email, password } = user;
       const registeredUser = await usersModel.find({ email });
       if (registeredUser.length === 0) {
         if (email === 'adminCoder@coder.com' && password === 'adminCoder123') {
