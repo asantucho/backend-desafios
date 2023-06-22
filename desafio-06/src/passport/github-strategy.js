@@ -16,13 +16,22 @@ const registerOrLogin = async (accessToken, refreshToken, profile, done) => {
     profile._json.email !== null ? profile._json.profile : profile._json.blog;
   const user = await userDao.getUserByEmail(email);
   if (user) return done(null, user);
+  const nameParts = profile._json.name.split(' ');
+
+  let firstName = nameParts[0];
+  let lastName = '';
+
+  if (nameParts.length > 1) {
+    lastName = nameParts.length > 2 ? nameParts[2] : nameParts[1];
+  }
   const newUser = await userDao.createUser({
-    firstName: profile._json.name.split('')[0],
-    lastName: profile._json.name.split('')[2],
+    firstName,
+    lastName,
     email,
     password: '',
     isGithub: true,
   });
+  return done(null, newUser);
 };
 
 passport.use(

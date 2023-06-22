@@ -1,3 +1,4 @@
+import { session } from 'passport';
 import {
   getUserByEmailService,
   createUserService,
@@ -39,6 +40,25 @@ export const logInController = async (req, res, next) => {
     } else {
       res.redirect('/login-error');
     }
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const githubResponse = async (req, res, next) => {
+  try {
+    const { firstName, lastName, email, role, isGithub } = req.user;
+    res.json({
+      msg: 'Register/Login with Github successful',
+      session: req.session,
+      userData: {
+        firstName,
+        lastName,
+        email,
+        role,
+        isGithub,
+      },
+    });
   } catch (error) {
     next(error);
   }
