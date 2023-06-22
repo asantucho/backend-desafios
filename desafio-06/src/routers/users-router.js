@@ -3,6 +3,8 @@ import {
   getUserByEmailController,
   createUserController,
   logInController,
+  githubResponse,
+  getUserByIdController,
 } from '../controllers/users-controllers.js';
 import '../passport/github-strategy.js';
 import passport from 'passport';
@@ -12,6 +14,7 @@ const usersRouter = Router();
 usersRouter.post('/register', createUserController);
 usersRouter.post('/login', logInController);
 usersRouter.get('/:email', getUserByEmailController);
+usersRouter.get('/:id', getUserByIdController);
 usersRouter.get(
   '/register-github',
   passport.authenticate('github', { scope: ['user:email'] })

@@ -3,6 +3,7 @@ import {
   getUserByEmailService,
   createUserService,
   logInService,
+  getUserByIdService,
 } from '../services/users-services.js';
 import 'mongoose-paginate-v2';
 
@@ -23,6 +24,16 @@ export const getUserByEmailController = async (req, res, next) => {
   try {
     const { email } = req.body;
     const user = await getUserByEmailService(email);
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getUserByIdController = async (req, res, next) => {
+  try {
+    const { id } = req.body;
+    const user = await getUserByIdService(id);
     res.json(user);
   } catch (error) {
     next(error);

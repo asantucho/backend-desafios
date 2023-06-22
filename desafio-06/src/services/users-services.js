@@ -20,6 +20,15 @@ export const getUserByEmailService = async (email) => {
   }
 };
 
+export const getUserByIdService = async (id) => {
+  try {
+    const user = await usersDao.getUserById(id);
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const logInService = async (object) => {
   try {
     const user = await usersDao.logIn(object);
