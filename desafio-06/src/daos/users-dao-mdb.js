@@ -1,4 +1,5 @@
 import { usersModel } from './models/users-model.js';
+import { createHash, correctPassword } from '../utils.js';
 
 export default class UsersDaoMongo {
   async createUser(user) {
@@ -7,10 +8,18 @@ export default class UsersDaoMongo {
       const registeredUser = await usersModel.find({ email });
       if (registeredUser.length === 0) {
         if (email === 'adminCoder@coder.com' && password === 'adminCoder123') {
-          const newUser = await usersModel.create({ ...user, role: 'admin' });
+          const newUser = await usersModel.create({
+            ...user,
+            password: createHash(password),
+            role: 'admin',
+          });
           return newUser;
         } else {
-          const newUser = await usersModel.create({ ...user, role: 'user' });
+          const newUser = await usersModel.create({
+            ...user,
+            password: createHash(password),
+            role: 'user',
+          });
           return newUser;
         }
       } else {
@@ -32,9 +41,11 @@ export default class UsersDaoMongo {
   async logIn(user) {
     try {
       const { email, password } = user;
-      const registeredUser = await usersModel.find({ email, password });
-      if (registeredUser.length !== 0) {
-        return registeredUser;
+      const registeredUser = await usersModel.find({ email });
+      if (registeredUser) {
+        const validPassword = correctPassword(password, registeredUser);
+        if (!validPassword) return false;
+        else return registeredUser;
       } else {
         return null;
       }

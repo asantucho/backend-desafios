@@ -1,4 +1,7 @@
 import express from 'express';
+import passport from 'passport';
+import './passport/local-stategy.js';
+import './passport/github-strategy.js';
 import handlebars from 'express-handlebars';
 import { __dirname } from './path.js';
 import productsRouter from './routers/products-router.js';
@@ -31,6 +34,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
+app.use(passport.initialize());
+app.use(passport.session());
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');

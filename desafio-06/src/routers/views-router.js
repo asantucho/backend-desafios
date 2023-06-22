@@ -2,16 +2,8 @@ import { Router } from 'express';
 
 const viewsRouter = Router();
 
-viewsRouter.get('/chat', (req, res) => {
-  res.render('chat');
-});
-
-viewsRouter.get('/realtimeproducts', (req, res) => {
-  res.render('realtimeproducts');
-});
-
 viewsRouter.get('/', (req, res) => {
-  res.render('home');
+  res.render('login');
 });
 
 viewsRouter.get('/register', (req, res) => {

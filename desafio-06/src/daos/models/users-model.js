@@ -9,6 +9,7 @@ const usersSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, required: false },
+  isGithub: { type: Boolean, required: true, default: false },
 });
 
 usersSchema.plugin(mongoosePaginate);
