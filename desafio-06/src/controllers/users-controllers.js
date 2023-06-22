@@ -74,3 +74,34 @@ export const githubResponse = async (req, res, next) => {
     next(error);
   }
 };
+
+export const localRegisterResponse = async (req, res, next) => {
+  try {
+    res.json({
+      msg: 'local register OK',
+      session: req.session,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const logInLocalResponse = async (req, res, next) => {
+  try {
+    const user = await getUserByIdService(req.session.passport.user);
+    const { firstName, lastName, email, role, isGithub } = user;
+    res.json({
+      msg: 'local login OK',
+      session: req.session,
+      userData: {
+        firstName,
+        lastName,
+        email,
+        role,
+        isGithub,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

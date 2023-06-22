@@ -5,14 +5,20 @@ import {
   logInController,
   githubResponse,
   getUserByIdController,
+  logInLocalResponse,
+  localRegisterResponse,
 } from '../controllers/users-controllers.js';
 import '../passport/github-strategy.js';
 import passport from 'passport';
 
 const usersRouter = Router();
 
-usersRouter.post('/register', createUserController);
-usersRouter.post('/login', logInController);
+usersRouter.post(
+  '/register',
+  passport.authenticate('register'),
+  localRegisterResponse
+);
+usersRouter.post('/login', passport.authenticate('login', logInLocalResponse));
 usersRouter.get('/:email', getUserByEmailController);
 usersRouter.get('/:id', getUserByIdController);
 usersRouter.get(
