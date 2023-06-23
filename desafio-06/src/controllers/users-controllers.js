@@ -1,4 +1,4 @@
-import { session } from 'passport';
+import passport from 'passport';
 import {
   getUserByEmailService,
   createUserService,
@@ -6,6 +6,8 @@ import {
   getUserByIdService,
 } from '../services/users-services.js';
 import 'mongoose-paginate-v2';
+
+const { session } = passport;
 
 export const createUserController = async (req, res, next) => {
   try {

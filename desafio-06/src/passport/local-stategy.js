@@ -1,5 +1,5 @@
 import { Strategy as localStrategy } from 'passport-local';
-import UsersDaoMongo from '../daos/users-dao-mdb';
+import UsersDaoMongo from '../daos/users-dao-mdb.js';
 import passport from 'passport';
 
 const userDao = new UsersDaoMongo();

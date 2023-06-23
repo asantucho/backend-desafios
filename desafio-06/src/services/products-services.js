@@ -1,4 +1,4 @@
-import ProductsDaoMongo from '../daos/mongoDB/products-dao-mdb.js';
+import ProductsDaoMongo from '../daos/products-dao-mdb.js';
 
 const productMongo = new ProductsDaoMongo();
 

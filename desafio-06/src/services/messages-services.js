@@ -1,4 +1,4 @@
-import MessagesDaoMongo from '../daos/mongoDB/messages-dao-mdb.js';
+import MessagesDaoMongo from '../daos/messages-dao-mdb.js';
 
 const messages = new MessagesDaoMongo();
 

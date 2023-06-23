@@ -1,4 +1,4 @@
-import UsersDaoMongo from '../daos/mongoDB/users-dao-mdb.js';
+import UsersDaoMongo from '../daos/users-dao-mdb.js';
 
 const usersDao = new UsersDaoMongo();
 
@@ -13,7 +13,7 @@ export const createUserService = async (object) => {
 
 export const getUserByEmailService = async (email) => {
   try {
-    const user = await usersDao.getUserByEmail(email);
+    const user = await usersDao.getUserByEmail({ email });
     return user;
   } catch (error) {
     console.log(error);

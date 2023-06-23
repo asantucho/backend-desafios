@@ -2,11 +2,11 @@ import { Router } from 'express';
 
 const viewsRouter = Router();
 
-viewsRouter.get('/', (req, res) => {
+viewsRouter.get('/users/login', (req, res) => {
   res.render('login');
 });
 
-viewsRouter.get('/register', (req, res) => {
+viewsRouter.get('/users/register', (req, res) => {
   res.render('register-form');
 });
 
