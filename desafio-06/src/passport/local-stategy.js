@@ -5,14 +5,14 @@ import passport from 'passport';
 const userDao = new UsersDaoMongo();
 
 const strategyOptionsLocal = {
-  username: 'email',
-  password: 'password',
+  usernameField: 'email',
+  passwordField: 'password',
   passReqToCallback: true,
 };
 
 const signUpLocal = async (req, email, password, done) => {
   try {
-    const user = userDao.getUserByEmail(email);
+    const user = await userDao.getUserByEmail(email);
     if (user) return done(null, false);
     const newUser = await userDao.createUser(req.body);
     return done(null, newUser);
