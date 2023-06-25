@@ -5,7 +5,7 @@ export default class UsersDaoMongo {
   async createUser(user) {
     try {
       const { email, password } = user;
-      const registeredUser = await usersModel.find({ email });
+      const registeredUser = await usersModel.findOne({ email });
       if (registeredUser.length === 0) {
         if (email === 'adminCoder@coder.com' && password === 'adminCoder123') {
           const newUser = await usersModel.create({
@@ -50,7 +50,7 @@ export default class UsersDaoMongo {
   async logIn(user) {
     try {
       const { email, password } = user;
-      const registeredUser = await usersModel.find({ email });
+      const registeredUser = await usersModel.findOne({ email });
       if (registeredUser) {
         const validPassword = correctPassword(password, registeredUser);
         if (!validPassword) return false;

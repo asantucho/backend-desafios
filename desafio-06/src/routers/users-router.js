@@ -15,12 +15,11 @@ const usersRouter = Router();
 
 usersRouter.post(
   '/register',
-  passport.authenticate('register'),
-  localRegisterResponse
+  passport.authenticate('register', { session: false }),
+  localRegisterResponse,
+  createUserController
 );
 usersRouter.post('/login', passport.authenticate('login', logInLocalResponse));
-usersRouter.get('/:email', getUserByEmailController);
-usersRouter.get('/:id', getUserByIdController);
 usersRouter.get(
   '/register-github',
   passport.authenticate('github', { scope: ['user:email'] })
@@ -32,6 +31,8 @@ usersRouter.get(
     res.send('OK');
   }
 );
+usersRouter.get('/:email', getUserByEmailController);
+usersRouter.get('/:id', getUserByIdController);
 usersRouter.post('/logout', (req, res) => {
   if (req.session) {
     req.session.destroy((err) => {
