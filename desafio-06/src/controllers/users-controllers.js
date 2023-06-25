@@ -89,8 +89,9 @@ export const logInController = async (req, res, next) => {
 
 export const logInLocalResponse = async (req, res, next) => {
   try {
-    const user = await getUserByIdService(req.session.passport.user._id);
-    console.log('logInResponse:', user);
+    console.log(req);
+
+    const user = await getUserByIdService(req.session.passport.user);
     const { firstName, lastName, email, role, isGithub } = user;
     res.json({
       msg: 'local login OK',

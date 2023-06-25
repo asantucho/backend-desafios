@@ -27,7 +27,9 @@ usersRouter.post(
 usersRouter.post(
   '/login',
   logSession,
-  passport.authenticate('login', logInLocalResponse, logInController)
+  passport.authenticate('login'),
+  logInLocalResponse,
+  logInController
 );
 usersRouter.get(
   '/register-github',

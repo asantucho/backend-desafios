@@ -24,7 +24,9 @@ const signUpLocal = async (req, email, password, done) => {
 const logInLocal = async (req, email, password, done) => {
   try {
     const user = { email, password };
+    console.log('user:', user);
     const userLogin = await userDao.logIn(user);
+    console.log('userLogin:', userLogin);
     if (!userLogin) return done(null, false);
     return done(null, userLogin);
   } catch (error) {
