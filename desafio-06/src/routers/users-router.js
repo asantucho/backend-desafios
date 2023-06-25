@@ -38,9 +38,7 @@ usersRouter.get(
 usersRouter.get(
   '/profile-github',
   passport.authenticate('github', { scope: ['user:email'] }),
-  (req, res) => {
-    res.send('OK');
-  }
+  githubResponse
 );
 usersRouter.get('/:email', getUserByEmailController);
 usersRouter.get('/:id', getUserByIdController);

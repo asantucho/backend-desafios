@@ -7,13 +7,13 @@ const userDao = new UsersDaoMongo();
 const strategyOptionsGithub = {
   clientID: 'Iv1.61f8530e72667864',
   clientSecret: '6e7aa0625937c0a8cf7c8afd8bdcc45ef77a36ce',
-  callbackURL: 'http://localhost:8080/users/github',
+  callbackURL: 'http://localhost:8080/users/profile-github',
 };
 
 const registerOrLogin = async (accessToken, refreshToken, profile, done) => {
   console.log('profile:::', profile);
   const email =
-    profile._json.email !== null ? profile._json.profile : profile._json.blog;
+    profile._json.email !== null ? profile._json.email : profile._json.blog;
   const user = await userDao.getUserByEmail(email);
   if (user) return done(null, user);
   const nameParts = profile._json.name.split(' ');
