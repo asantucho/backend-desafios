@@ -53,7 +53,7 @@ export default class UsersDaoMongo {
       const { email, password } = user;
       const registeredUser = await usersModel.findOne({ email });
       if (registeredUser) {
-        const validPassword = correctPassword(password, registeredUser);
+        const validPassword = correctPassword(registeredUser, password);
         if (!validPassword) return false;
         else return registeredUser;
       } else {

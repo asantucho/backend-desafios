@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const connectionString =
-  'mongodb+srv://masantucho:masantucho@cluster0.noyiw8q.mongodb.net/desafio-05';
+  'mongodb+srv://masantucho:masantucho@cluster0.noyiw8q.mongodb.net/desafio-06';
 
 try {
   await mongoose.connect(connectionString);

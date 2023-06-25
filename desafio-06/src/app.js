@@ -16,7 +16,7 @@ import cookieParser from 'cookie-parser';
 const storeOptions = {
   store: MongoStore.create({
     mongoUrl:
-      'mongodb+srv://masantucho:masantucho@cluster0.noyiw8q.mongodb.net/desafio-05',
+      'mongodb+srv://masantucho:masantucho@cluster0.noyiw8q.mongodb.net/desafio-06',
     crypto: {
       secret: '0303456',
     },
@@ -41,10 +41,10 @@ app.use(passport.session());
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
-app.use('/', viewsRouter);
 app.use('/products', productsRouter);
 app.use('/carts', cartRouter);
 app.use('/users', usersRouter);
+app.use('/', viewsRouter);
 
 const httpServer = app.listen(8080, () => {
   console.log('server working at 8080 port');

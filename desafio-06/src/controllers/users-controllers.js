@@ -1,4 +1,3 @@
-import passport from 'passport';
 import {
   getUserByEmailService,
   createUserService,
@@ -6,8 +5,6 @@ import {
   getUserByIdService,
 } from '../services/users-services.js';
 import 'mongoose-paginate-v2';
-
-const { session } = passport;
 
 export const createUserController = async (req, res, next) => {
   try {
@@ -37,22 +34,6 @@ export const getUserByIdController = async (req, res, next) => {
     const { id } = req.body;
     const user = await getUserByIdService(id);
     res.json(user);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const logInController = async (req, res, next) => {
-  try {
-    const { email, password } = req.body;
-    const user = await logInService(req.body);
-    if (user) {
-      req.session.email = email;
-      req.session.password = password;
-      res.redirect('/welcome');
-    } else {
-      res.redirect('/login-error');
-    }
   } catch (error) {
     next(error);
   }
@@ -88,9 +69,28 @@ export const localRegisterResponse = async (req, res, next) => {
   }
 };
 
+export const logInController = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    const user = await logInService({ email, password });
+    console.log('login controller:', user);
+    if (user) {
+      req.session.passport.user = user._id;
+      req.session.email = email;
+      req.session.password = password;
+      res.redirect('/welcome');
+    } else {
+      res.redirect('/login-error');
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const logInLocalResponse = async (req, res, next) => {
   try {
-    const user = await getUserByIdService(req.session.passport.user);
+    const user = await getUserByIdService(req.session.passport.user._id);
+    console.log('logInResponse:', user);
     const { firstName, lastName, email, role, isGithub } = user;
     res.json({
       msg: 'local login OK',
@@ -104,6 +104,7 @@ export const logInLocalResponse = async (req, res, next) => {
       },
     });
   } catch (error) {
-    next(error);
+    // next(error);
+    console.log(error);
   }
 };
