@@ -39,10 +39,9 @@ export default class UsersDaoMongo {
       console.log(error);
     }
   }
-  async getUserById(user) {
+  async getUserById(id) {
     try {
-      const { id } = user;
-      const registeredUser = await usersModel.findOne({ id });
+      const registeredUser = await usersModel.findOne({ _id: id });
       return registeredUser;
     } catch (error) {
       console.log(error);

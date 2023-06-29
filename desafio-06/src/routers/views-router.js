@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { isLogged } from '../middlewares/logged-views.js';
 
 const viewsRouter = Router();
 
@@ -22,8 +23,10 @@ viewsRouter.get('/login-error', (req, res) => {
   res.render('error-login');
 });
 
-viewsRouter.get('/welcome', (req, res) => {
-  res.render('welcome');
+viewsRouter.get('/welcome', isLogged, (req, res) => {
+  const firstName = req.session.firstName;
+
+  res.render('welcome', { firstName });
 });
 
 export default viewsRouter;

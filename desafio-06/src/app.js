@@ -20,12 +20,12 @@ const storeOptions = {
     crypto: {
       secret: '0303456',
     },
+    ttl: 60000,
   }),
 };
 
 const sessionConfig = {
   secret: '0303456',
-  cookie: { maxAge: 30000 },
   saveUninitialized: false,
   resave: false,
 };
