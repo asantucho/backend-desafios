@@ -24,9 +24,7 @@ viewsRouter.get('/login-error', (req, res) => {
 });
 
 viewsRouter.get('/welcome', isLogged, (req, res) => {
-  const firstName = req.session.firstName;
-
-  res.render('welcome', { firstName });
+  res.render('welcome', { user: req.user });
 });
 
 export default viewsRouter;
