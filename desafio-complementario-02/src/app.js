@@ -4,14 +4,11 @@ import './passport/local-stategy.js';
 import './passport/github-strategy.js';
 import handlebars from 'express-handlebars';
 import { __dirname } from './utils.js';
-import productsRouter from './routers/products-router.js';
-import cartRouter from './routers/carts-router.js';
-import usersRouter from './routers/users-router.js';
-import viewsRouter from './routers/views-router.js';
 import './db/database.js';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
+import mainRouter from './routers/main-routers.js';
 
 const storeOptions = {
   store: MongoStore.create({
@@ -41,10 +38,7 @@ app.use(passport.session());
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
-app.use('/products', productsRouter);
-app.use('/carts', cartRouter);
-app.use('/users', usersRouter);
-app.use('/', viewsRouter);
+app.use('/api', mainRouter);
 
 const httpServer = app.listen(8080, () => {
   console.log('server working at 8080 port');

@@ -48,4 +48,20 @@ export default class UserManager extends MainClass {
       console.log('error en el user-manager:', error);
     }
   }
+  async login(user) {
+    try {
+      const { email, password } = user;
+      const existingUser = await this.getByEmail(email);
+      if (existingUser) {
+        const correctPassword = isValidPassword(existingUser, password);
+        if (!correctPassword) return false;
+        else {
+          const token = this.#generateToken(existingUser);
+          return token;
+        }
+      }
+    } catch (error) {
+      console.log('error en el manager', error);
+    }
+  }
 }
