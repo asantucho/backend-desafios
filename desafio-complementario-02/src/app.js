@@ -1,10 +1,6 @@
 import express from 'express';
-import passport from 'passport';
-import './passport/local-stategy.js';
-import './passport/github-strategy.js';
-import handlebars from 'express-handlebars';
 import { __dirname } from './utils.js';
-import './db/database.js';
+import './database/database.js';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
@@ -33,11 +29,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
 app.use(session({ ...sessionConfig, ...storeOptions }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.engine('handlebars', handlebars.engine());
-app.set('views', __dirname + '/views');
-app.set('view engine', 'handlebars');
 app.use('/api', mainRouter);
 
 const httpServer = app.listen(8080, () => {

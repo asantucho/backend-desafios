@@ -3,7 +3,7 @@ import UserManager from '../daos/managers/users-manager.js';
 
 const userManager = new UserManager();
 
-export default class UserService extends Services() {
+export default class UserService extends Services {
   constructor() {
     super(userManager);
   }
