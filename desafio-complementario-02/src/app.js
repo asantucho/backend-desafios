@@ -4,21 +4,22 @@ import './database/database.js';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
+import 'dotenv/config';
+import { errorHandler } from './middlewares/errorHandler.js';
 import mainRouter from './routers/main-routers.js';
 
 const storeOptions = {
   store: MongoStore.create({
-    mongoUrl:
-      'mongodb+srv://masantucho:masantucho@cluster0.noyiw8q.mongodb.net/desafio-06',
+    mongoUrl: process.env.MONGO_URL,
     crypto: {
-      secret: '0303456',
+      secret: process.env.SECRET_KEY,
     },
     ttl: 60000,
   }),
 };
 
 const sessionConfig = {
-  secret: '0303456',
+  secret: process.env.SECRET_KEY,
   saveUninitialized: false,
   resave: false,
 };
@@ -26,8 +27,8 @@ const sessionConfig = {
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
+app.use(errorHandler);
 app.use(session({ ...sessionConfig, ...storeOptions }));
 app.use('/api', mainRouter);
 

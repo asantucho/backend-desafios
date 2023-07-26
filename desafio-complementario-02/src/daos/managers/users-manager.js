@@ -8,6 +8,7 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 export default class UserManager extends MainClass {
   constructor() {
+    console.log('UserManager constructor called');
     super(usersModel);
   }
   #generateToken(user) {
