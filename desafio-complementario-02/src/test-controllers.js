@@ -4,7 +4,7 @@ import UserService from './services/users-services.js';
 import { createResponse } from './utils.js';
 
 const userService = new UserService();
-const userController = new UserController(userService); // Pass the userService instance to the UserController constructor
+const userController = new UserController(userService);
 
 const createMockRequest = (body, params, user) => {
   return {
