@@ -3,7 +3,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 export const createHash = (password) => {
-  bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 };
 
 export const isValidPassword = (user, password) =>
