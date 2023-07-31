@@ -1,13 +1,11 @@
 import { ExtractJwt } from 'passport-jwt';
 
 const cookieExtractor = (req) => {
-  const token = req.cookie.token;
+  const token = req.cookies.token;
   return token;
 };
 
-const cookieStrategyOptions = {
+export const cookieStrategyOptions = {
   jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
   secretOrKey: '0303456',
 };
-
-passport.use('cookieExtractor', cookieStrategyOptions);
