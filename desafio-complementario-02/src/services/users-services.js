@@ -32,4 +32,12 @@ export default class UserService extends Services {
       console.log('error en el service', error);
     }
   }
+  async profile(id) {
+    try {
+      const userProfile = await this.getById(id);
+      return userProfile;
+    } catch (error) {
+      console.log('error en el service', error);
+    }
+  }
 }
