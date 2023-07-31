@@ -9,15 +9,15 @@ export default class UserController extends Controller {
     console.log('UserController constructor called');
     super(userService);
   }
-  async register(req, res, next) {
+  register = async (req, res, next) => {
     try {
       const token = await this.service.register(req.body);
       createResponse(res, 200, token);
     } catch (error) {
       next(error.message);
     }
-  }
-  async login(req, res, next) {
+  };
+  login = async (req, res, next) => {
     try {
       const userExists = await this.service.login(req.body);
       userExists
@@ -29,8 +29,8 @@ export default class UserController extends Controller {
     } catch (error) {
       next(error.message);
     }
-  }
-  async profile(req, res, next) {
+  };
+  profile = async (req, res, next) => {
     try {
       const { firstName, lastName, email, role } = req.user;
       createResponse(res, 200, {
@@ -42,7 +42,7 @@ export default class UserController extends Controller {
     } catch (error) {
       next(error.message);
     }
-  }
+  };
   async getByEmail(req, res, next) {
     try {
       const existingUser = await this.service.getByEmail(req.user);

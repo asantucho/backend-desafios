@@ -7,6 +7,6 @@ const mainRouter = Router();
 
 mainRouter.use('/products', productRouter);
 mainRouter.use('/users', userRouter);
-mainRouter.use('/sessions/current', currentRouter);
+mainRouter.use('/sessions', currentRouter);
 
 export default mainRouter;
