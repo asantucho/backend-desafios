@@ -12,23 +12,32 @@ export default class UserManager extends MainClass {
     super(usersModel);
   }
   #generateToken(user) {
-    console.log('generate Token user', user);
-    const payload = {
-      userId: user._id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-    };
-    console.log('generateToken payload:', payload);
-    const token = jwt.sign(payload, SECRET_KEY, {
-      expiresIn: '10m',
-    });
-    return token;
+    if (!SECRET_KEY) {
+      console.log('Error: SECRET_KEY is not set.');
+      return;
+    }
+    try {
+      console.log('generate Token user', user);
+      const payload = {
+        userId: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      };
+      console.log('generateToken payload:', payload);
+      const token = jwt.sign(payload, SECRET_KEY, {
+        expiresIn: '10m',
+      });
+      return token;
+    } catch (error) {
+      console.log('error en generateToken: ', error);
+    }
   }
   async getByEmail(email) {
     try {
       console.log('getByEmail called with email:', email);
       const existingUser = await this.model.findOne({ email }).exec();
+      console.log('existingUser: ', existingUser);
       if (existingUser) {
         return existingUser;
       } else return false;
@@ -48,6 +57,7 @@ export default class UserManager extends MainClass {
           ...user,
           password: createHash(password),
         });
+        console.log('newUser: ', newUser);
         const token = this.#generateToken(newUser);
         console.log('Token generated:', token);
         return token;
@@ -70,6 +80,20 @@ export default class UserManager extends MainClass {
       }
     } catch (error) {
       console.log('error en el manager', error);
+    }
+  }
+  async profile(token) {
+    try {
+      const decodedToken = jwt.verify(token, SECRET_KEY);
+      const userId = decodedToken.userId;
+      const userProfile = await this.model.findById(userId).exec();
+      if (userProfile) {
+        return userProfile;
+      } else {
+        throw new Error('User not found');
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 }

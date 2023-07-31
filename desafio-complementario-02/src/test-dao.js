@@ -45,14 +45,14 @@ const testDaoOperations = async () => {
     // console.log('Deleted user:', deletedUser);
 
     // Test register method
-    const user = {
-      firstName: 'Jane',
-      lastName: 'Doe',
-      email: 'jane.doe@example.com',
-      password: '123456',
-    };
-    const token = await userManager.register(user);
-    console.log('New user registered. Token:', token);
+    // const user = {
+    //   firstName: 'Jane',
+    //   lastName: 'Doe',
+    //   email: 'jane.doe@example.com',
+    //   password: '123456',
+    // };
+    // const token = await userManager.register(user);
+    // console.log('New user registered. Token:', token);
 
     // // Test login method (from the UserService)
     // const loginData = {
@@ -62,15 +62,12 @@ const testDaoOperations = async () => {
     // const loggedInUser = await userManager.login(loginData);
     // console.log('Logged-in user:', loggedInUser);
 
-    // // Test profile method (from the UserService)
-    // const profileData = {
-    //   firstName: 'Jane',
-    //   lastName: 'Doe',
-    //   email: 'jane.doe@example.com',
-    //   role: 'user',
-    // };
-    // const userProfile = await userManager.profile(profileData);
-    // console.log('User profile:', userProfile);
+    // Test profile method (from the UserService)
+    const testToken =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGM0MzViNTkyNDkyMWVmMmRlOTFlOWQiLCJmaXJzdE5hbWUiOiJKYW5lIiwibGFzdE5hbWUiOiJEb2UiLCJlbWFpbCI6ImphbmUuZG9lQGV4YW1wbGUuY29tIiwiaWF0IjoxNjkwODIyMDE3LCJleHAiOjE2OTA4MjI2MTd9.5ReQecYuQ7GMnZCz5XzeviQL1R2Ii24ZHDLATW2UPzI';
+
+    const userProfile = await userManager.profile(testToken);
+    console.log('User Profile:', userProfile);
   } catch (error) {
     console.error('Error performing DAO operations:', error);
     //   } finally {
