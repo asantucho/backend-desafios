@@ -4,7 +4,7 @@ export default class Controller {
   constructor(service) {
     this.service = service;
   }
-  async create(req, res, next) {
+  create = async (req, res, next) => {
     try {
       const newResponse = await this.service.create(req.body);
       if (!newResponse) {
@@ -18,16 +18,16 @@ export default class Controller {
     } catch (error) {
       next(error.message);
     }
-  }
-  async getAll(req, res, next) {
+  };
+  getAll = async (req, res, next) => {
     try {
       const response = await this.service.getAll();
       createResponse(res, 200, response);
     } catch (error) {
       next(error.message);
     }
-  }
-  async getById(req, res, next) {
+  };
+  getById = async (req, res, next) => {
     try {
       const { id } = req.params;
       const responseById = await this.service.getById(id);
@@ -42,8 +42,8 @@ export default class Controller {
     } catch (error) {
       next(error.message);
     }
-  }
-  async update(req, res, next) {
+  };
+  update = async (req, res, next) => {
     try {
       const { id } = req.params;
       const responseById = await this.service.getById(id);
@@ -59,10 +59,10 @@ export default class Controller {
     } catch (error) {
       next(error.message);
     }
-  }
-  async delete(req, res, next) {
+  };
+  delete = async (req, res, next) => {
     const { id } = req.params;
     const toDelete = await this.service.delete(id);
     createResponse(res, 200, toDelete);
-  }
+  };
 }

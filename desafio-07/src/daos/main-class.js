@@ -1,10 +1,12 @@
 export default class MainClass {
   constructor(model) {
     this.model = model;
+    console.log('MainClass constructor called');
   }
   async create(object) {
     try {
       const response = await this.model.create(object);
+      console.log(response);
       return response;
     } catch (error) {
       console.log('error en el MAIN-DAO', error);

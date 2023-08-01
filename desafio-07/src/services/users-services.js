@@ -3,13 +3,14 @@ import UserManager from '../daos/managers/users-manager.js';
 
 const userManager = new UserManager();
 
-export default class UserService extends Services() {
+export default class UserService extends Services {
   constructor() {
+    console.log('UserService constructor called');
     super(userManager);
   }
   async register(user) {
     try {
-      const token = await this.userManager.register(user);
+      const token = await this.manager.register(user);
       return token;
     } catch (error) {
       console.log('error en el service', error);
@@ -17,7 +18,7 @@ export default class UserService extends Services() {
   }
   async getByEmail(email) {
     try {
-      const existingUser = await this.userManager.getByEmail(email);
+      const existingUser = await this.manager.getByEmail(email);
       return existingUser;
     } catch (error) {
       console.log('error en el service', error);
@@ -25,8 +26,16 @@ export default class UserService extends Services() {
   }
   async login(user) {
     try {
-      const existingUser = await this.userManager.login(user);
+      const existingUser = await this.manager.login(user);
       return existingUser;
+    } catch (error) {
+      console.log('error en el service', error);
+    }
+  }
+  async profile(id) {
+    try {
+      const userProfile = await this.getById(id);
+      return userProfile;
     } catch (error) {
       console.log('error en el service', error);
     }
