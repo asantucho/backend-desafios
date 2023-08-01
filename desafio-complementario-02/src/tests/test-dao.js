@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import mongoose from 'mongoose';
-import UserManager from './daos/managers/users-manager.js';
+import UserManager from '../daos/managers/users-manager.js';
 
 const connectionString = process.env.MONGO_URL;
 

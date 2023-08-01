@@ -1,4 +1,4 @@
-import UserManager from './daos/managers/users-manager.js';
+import UserManager from '../daos/managers/users-manager.js';
 
 const testDaoOperations = async () => {
   const userManager = new UserManager();

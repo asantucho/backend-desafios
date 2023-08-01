@@ -1,7 +1,7 @@
-import Controller from './controllers/main-controller.js';
-import UserController from './controllers/users-controller.js';
-import UserService from './services/users-services.js';
-import { createResponse } from './utils.js';
+import Controller from '../controllers/main-controller.js';
+import UserController from '../controllers/users-controller.js';
+import UserService from '../services/users-services.js';
+import { createResponse } from '../utils.js';
 
 const userService = new UserService();
 const userController = new UserController(userService);

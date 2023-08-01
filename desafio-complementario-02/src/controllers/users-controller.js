@@ -43,12 +43,12 @@ export default class UserController extends Controller {
       next(error.message);
     }
   };
-  async getByEmail(req, res, next) {
+  getByEmail = async (req, res, next) => {
     try {
       const existingUser = await this.service.getByEmail(req.user);
       createResponse(res, 200, existingUser);
     } catch (error) {
       next(error);
     }
-  }
+  };
 }

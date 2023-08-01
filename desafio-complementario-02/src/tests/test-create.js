@@ -1,4 +1,4 @@
-import { usersModel } from './daos/models/users-model.js';
+import { usersModel } from '../daos/models/users-model.js';
 import mongoose from 'mongoose';
 import 'dotenv/config';
 

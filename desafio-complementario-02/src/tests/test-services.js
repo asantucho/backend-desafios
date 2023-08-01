@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import UserService from './services/users-services.js';
+import UserService from '../services/users-services.js';
 //import MainServices from './services/main-services.js';
-import UserManager from './daos/managers/users-manager.js';
-import { createHash } from './utils.js';
+import UserManager from '../daos/managers/users-manager.js';
+import { createHash } from '../utils.js';
 import 'dotenv/config';
 
 // Connect to the MongoDB database
