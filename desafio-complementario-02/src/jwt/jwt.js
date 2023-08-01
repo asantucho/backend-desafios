@@ -55,7 +55,7 @@ export const checkAuth = async (req, res, next) => {
 };
 
 passport.use('jwt', new jwtStrategy(strategyOptions, verifyToken));
-passport.use('jwtCookies', new jwtStrategy(cookieStrategyOptions, checkAuth));
+passport.use('jwtCookies', new jwtStrategy(cookieStrategyOptions, verifyToken));
 
 passport.serializeUser((user, done) => {
   done(null, user.userId);
