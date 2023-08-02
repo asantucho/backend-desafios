@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import config from '../config.js';
 import passport from 'passport';
 import { ExtractJwt, Strategy as jwtStrategy } from 'passport-jwt';
 import UserManager from '../daos/managers/users-manager.js';
@@ -7,7 +7,7 @@ const userManager = new UserManager();
 
 const strategyOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.SECRET_KEY,
+  secretOrKey: config.SECRET_KEY,
 };
 
 const cookieExtractor = (req) => {
@@ -18,7 +18,7 @@ const cookieExtractor = (req) => {
 
 const cookieStrategyOptions = {
   jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
-  secretOrKey: process.env.SECRET_KEY,
+  secretOrKey: config.SECRET_KEY,
 };
 
 const verifyToken = async (jwt_payload, done) => {
@@ -41,7 +41,7 @@ export const checkAuth = async (req, res, next) => {
         .json({ msg: 'Unauthorized porque no hay authheader' });
     const token = authHeader.split(' ')[1];
     console.log('token en checkAuth: ', token);
-    const decode = jwt.verify(token, SECRET_KEY_JWT);
+    const decode = jwt.verify(token, config.SECRET_KEY);
     console.log('decode en checkAuth: ', decode);
     const user = await userManager.getById(decode.userId);
     console.log('user en checkAuth: ', user);

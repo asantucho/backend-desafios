@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import 'dotenv/config';
+import config from '../config.js';
 
-const connectionString = process.env.MONGO_URL;
+const connectionString = config.MONGO_URL;
 
 try {
   await mongoose.connect(connectionString, { serverSelectionTimeoutMS: 30000 });
