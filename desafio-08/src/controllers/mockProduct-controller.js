@@ -8,10 +8,10 @@ export default class MockProductController extends Controller {
   constructor() {
     super(mockProductService);
   }
-  createMockProduct = async (req, res, next) => {
+  createMockProducts = async (req, res, next) => {
     const { cant } = req.query;
     try {
-      const products = await this.service.createMockProduct(cant);
+      const products = await this.service.createMockProducts(cant);
       createResponse(res, 200, products);
     } catch (error) {
       next(error.message);
