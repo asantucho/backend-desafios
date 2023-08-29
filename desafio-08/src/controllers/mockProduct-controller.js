@@ -1,5 +1,5 @@
 import Controller from './main-controller.js';
-import MockProductService from '../services/product-services.js';
+import MockProductService from '../services/mockProducts-services.js';
 import { createResponse } from '../utils.js';
 
 const mockProductService = new MockProductService();
@@ -7,6 +7,7 @@ const mockProductService = new MockProductService();
 export default class MockProductController extends Controller {
   constructor() {
     super(mockProductService);
+    console.log('MockProductController constructor:', this.service);
   }
   createMockProducts = async (req, res, next) => {
     const { cant } = req.query;
