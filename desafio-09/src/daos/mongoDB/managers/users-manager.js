@@ -1,6 +1,6 @@
 import { usersModel } from '../models/users-model.js';
 import MainClass from '../main-class.js';
-import { createHash, isValidPassword } from '../../utils.js';
+import { createHash, isValidPassword } from '../../../utils.js';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
@@ -33,7 +33,7 @@ export default class UserManager extends MainClass {
       console.log('error en generateToken: ', error);
     }
   }
-  async getByEmail(email) {
+  getByEmail = async (email) => {
     try {
       console.log('getByEmail called with email:', email);
       const existingUser = await this.model.findOne({ email }).exec();
@@ -44,8 +44,8 @@ export default class UserManager extends MainClass {
     } catch (error) {
       console.log('error en el user-manager(getByEmail)', error);
     }
-  }
-  async register(user) {
+  };
+  register = async (user) => {
     try {
       console.log('user que recibe el register: ', user);
       const { email, password } = user;
@@ -53,20 +53,32 @@ export default class UserManager extends MainClass {
       const registeredUser = await this.getByEmail(email);
       console.log('Registered user:', registeredUser);
       if (!registeredUser) {
-        const newUser = await this.create({
-          ...user,
-          password: createHash(password),
-        });
-        console.log('newUser: ', newUser);
-        const token = this.#generateToken(newUser);
-        console.log('Token generated:', token);
-        return token;
+        if (email === 'adminCoder@coder.com' && password === 'adminCoder123') {
+          const newUser = await usersModel.create({
+            ...user,
+            password: createHash(password),
+            role: 'admin',
+          });
+          return newUser;
+        } else {
+          const newUser = await usersModel.create({
+            ...user,
+            password: createHash(password),
+            role: 'user',
+          });
+          return newUser;
+        }
       }
+      console.log('newUser: ', newUser);
+      const token = this.#generateToken(newUser);
+      console.log('Token generated:', token);
+      console.log('paso exitosamente el dao');
+      return token;
     } catch (error) {
       console.log('error en el user-manager(register):', error);
     }
-  }
-  async login(user) {
+  };
+  login = async (user) => {
     try {
       const { email, password } = user;
       const existingUser = await this.getByEmail(email);
@@ -81,8 +93,8 @@ export default class UserManager extends MainClass {
     } catch (error) {
       console.log('error en el manager', error);
     }
-  }
-  async profile(token) {
+  };
+  profile = async (token) => {
     try {
       const decodedToken = jwt.verify(token, SECRET_KEY);
       const userId = decodedToken.userId;
@@ -95,5 +107,5 @@ export default class UserManager extends MainClass {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 }

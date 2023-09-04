@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { cartsModel } from './carts-model.js';
 
-const usersCollection = 'users';
+export const usersCollection = 'users';
 
 const usersSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
@@ -11,6 +11,14 @@ const usersSchema = new mongoose.Schema({
   role: { type: String, required: false },
   cart: { type: mongoose.Schema.Types.ObjectId, ref: cartsModel },
   isGoogle: { type: Boolean, required: false, default: false },
+});
+
+usersSchema.pre('save', async function (next) {
+  if (!this.cart) {
+    const newCart = await cartsModel.create({});
+    this.cart = newCart._id;
+  }
+  next();
 });
 
 export const usersModel = mongoose.model(usersCollection, usersSchema);

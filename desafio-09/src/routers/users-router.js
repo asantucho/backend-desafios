@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import UserController from '../controllers/users-controller.js';
-import '../jwt/jwt.js';
+import '../lib/jwt/jwt.js';
 import passport from 'passport';
 
 const userController = new UserController();
