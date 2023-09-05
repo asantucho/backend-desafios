@@ -1,6 +1,6 @@
 import Controller from './main-controller.js';
 import MockProductService from '../services/mockProducts-services.js';
-import { createResponse } from '../utils.js';
+import { createResponse } from '../utils/createResponse.js';
 
 const mockProductService = new MockProductService();
 

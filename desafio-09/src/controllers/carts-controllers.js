@@ -1,11 +1,11 @@
 import Controller from './main-controller.js';
 import CartsServices from '../services/carts-services.js';
 import ProductManager from '../daos/mongoDB/managers/products-manager.js';
+import { createResponse } from '../utils/createResponse.js';
 import {
-  createResponse,
   generateUniqueCode,
   calculateTotalAmount,
-} from '../utils.js';
+} from '../utils/ticketFunctions.js';
 
 const cartsServices = new CartsServices();
 const productManager = new ProductManager();

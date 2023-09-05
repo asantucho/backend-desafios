@@ -1,4 +1,4 @@
-import { createResponse } from '../utils.js';
+import { createResponse } from '../utils/createResponse';
 
 export default class Controller {
   constructor(service) {
