@@ -1,6 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import handlebars from 'express-handlebars';
+import config from './config/config.js';
 import { __dirname } from './utils.js';
 import { init as initSocket } from './socket.js';
 import MessageServices from './services/messages-services.js';
@@ -8,23 +9,22 @@ import './lib/database/database.js';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
-import 'dotenv/config';
-import { errorHandler } from './lib/middlewares/errorHandler.js';
 import mainRouter from './routers/main-routers.js';
 import './lib/jwt/jwt.js';
+import { errorHandler } from './lib/middlewares/errorHandler.js';
 
 const storeOptions = {
   store: MongoStore.create({
-    mongoUrl: process.env.MONGO_URL,
+    mongoUrl: config.MONGO_URL,
     crypto: {
-      secret: process.env.SECRET_KEY,
+      secret: config.SECRET_KEY,
     },
     ttl: 60000,
   }),
 };
 
 const sessionConfig = {
-  secret: process.env.SECRET_KEY,
+  secret: config.SECRET_KEY,
   saveUninitialized: false,
   resave: false,
 };
@@ -45,6 +45,8 @@ app.use('/api', mainRouter);
 const httpServer = app.listen(8080, () => {
   console.log('server working at 8080 port');
 });
+
+// CHAT WITH SOCKETS
 
 const socketServer = initSocket(httpServer);
 
