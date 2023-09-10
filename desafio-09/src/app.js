@@ -11,6 +11,7 @@ import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import mainRouter from './routers/main-routers.js';
 import './lib/jwt/jwt.js';
+import config from './config/config.js';
 import { errorHandler } from './lib/middlewares/errorHandler.js';
 
 const storeOptions = {
@@ -43,7 +44,11 @@ app.use(session({ ...sessionConfig, ...storeOptions }));
 app.use('/api', mainRouter);
 
 const httpServer = app.listen(8080, () => {
-  console.log('server working at 8080 port');
+  if (config.ENV === 'PROD') {
+    productionLogger.info(`Server is running on port ${config.PORT}`);
+  } else {
+    developmentLogger.info(`Server is running on port ${config.PORT}`);
+  }
 });
 
 // CHAT WITH SOCKETS
