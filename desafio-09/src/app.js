@@ -44,10 +44,11 @@ app.use(session({ ...sessionConfig, ...storeOptions }));
 app.use('/api', mainRouter);
 
 const ENV = config.ENV;
+const PORT = config.PORT;
 
 const httpServer = app.listen(8080, () => {
   if (ENV === 'DEV') {
-    developmentLogger.info(`Server is running on port ${config.PORT}`);
+    developmentLogger.info(`Server is running on port ${PORT}`);
   }
 });
 
@@ -57,7 +58,6 @@ const socketServer = initSocket(httpServer);
 const messageServices = new MessageServices();
 
 socketServer.on('connection', (socket) => {
-  console.log('user connected successfully');
   socket.on('disconnect', () => {
     console.log('user logged out');
   });
