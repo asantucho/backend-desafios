@@ -43,14 +43,17 @@ app.use(cookieParser());
 app.use(session({ ...sessionConfig, ...storeOptions }));
 app.use('/api', mainRouter);
 
+const ENV = config.ENV;
+
 const httpServer = app.listen(8080, () => {
-  developmentLogger.info(`Server is running on port ${config.PORT}`);
+  if (ENV === 'DEV') {
+    developmentLogger.info(`Server is running on port ${config.PORT}`);
+  }
 });
 
 // CHAT WITH SOCKETS
 
 const socketServer = initSocket(httpServer);
-
 const messageServices = new MessageServices();
 
 socketServer.on('connection', (socket) => {
