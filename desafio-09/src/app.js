@@ -2,7 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import handlebars from 'express-handlebars';
 import config from './config/config.js';
-import { __dirname } from './utils.js';
+import { __dirname } from './utils/utils.js';
 import { init as initSocket } from './socket.js';
 import MessageServices from './services/messages-services.js';
 import './lib/database/database.js';
@@ -11,7 +11,6 @@ import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import mainRouter from './routers/main-routers.js';
 import './lib/jwt/jwt.js';
-import config from './config/config.js';
 import { errorHandler } from './lib/middlewares/errorHandler.js';
 
 const storeOptions = {
