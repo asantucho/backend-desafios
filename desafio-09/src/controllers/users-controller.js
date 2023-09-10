@@ -6,14 +6,12 @@ const userService = new UserService();
 
 export default class UserController extends Controller {
   constructor() {
-    console.log('UserController constructor called');
     super(userService);
   }
   register = async (req, res, next) => {
     try {
       const token = await this.service.register(req.body);
       createResponse(res, 200, token);
-      console.log('paso exitosamente el controller');
     } catch (error) {
       next(error.message);
     }

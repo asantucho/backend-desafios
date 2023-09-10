@@ -1,4 +1,4 @@
-import { createResponse } from '../utils/createResponse';
+import { createResponse } from '../utils/createResponse.js';
 import config from '../config.js';
 
 export default class Controller {

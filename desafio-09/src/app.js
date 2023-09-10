@@ -11,7 +11,8 @@ import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import mainRouter from './routers/main-routers.js';
 import './lib/jwt/jwt.js';
-import { errorHandler } from './lib/middlewares/errorHandler.js';
+import { developmentLogger, productionLogger } from './utils/loggers.js';
+//import { errorHandler } from './lib/middlewares/errorHandler.js';
 
 const storeOptions = {
   store: MongoStore.create({
@@ -38,16 +39,12 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
 app.use(passport.initialize());
 app.use(cookieParser());
-app.use(errorHandler);
+//app.use(errorHandler);
 app.use(session({ ...sessionConfig, ...storeOptions }));
 app.use('/api', mainRouter);
 
 const httpServer = app.listen(8080, () => {
-  if (config.ENV === 'PROD') {
-    productionLogger.info(`Server is running on port ${config.PORT}`);
-  } else {
-    developmentLogger.info(`Server is running on port ${config.PORT}`);
-  }
+  developmentLogger.info(`Server is running on port ${config.PORT}`);
 });
 
 // CHAT WITH SOCKETS

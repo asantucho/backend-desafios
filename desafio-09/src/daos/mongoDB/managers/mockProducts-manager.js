@@ -1,6 +1,6 @@
 import { mockProductsModel } from '../models/mockProducts-model.js';
 import MainClass from '../main-class.js';
-import { generateProduct } from '../../../utils.js';
+import { generateProduct } from '../../../utils/faker.js';
 
 export default class MockProductManager extends MainClass {
   constructor() {

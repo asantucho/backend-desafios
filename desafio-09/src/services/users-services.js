@@ -5,13 +5,11 @@ const { userManager } = persistence;
 
 export default class UserService extends Services {
   constructor() {
-    console.log('UserService constructor called');
     super(userManager);
   }
   async register(user) {
     try {
       const token = await this.manager.register(user);
-      console.log('paso exitosamente el service');
       return token;
     } catch (error) {
       console.log('error en el service', error);

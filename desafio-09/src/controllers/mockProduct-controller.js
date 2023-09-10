@@ -7,7 +7,6 @@ const mockProductService = new MockProductService();
 export default class MockProductController extends Controller {
   constructor() {
     super(mockProductService);
-    console.log('MockProductController constructor:', this.service);
   }
   createMockProducts = async (req, res, next) => {
     const { cant } = req.query;
