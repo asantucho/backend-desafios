@@ -1,5 +1,5 @@
 import { createResponse } from '../utils/createResponse.js';
-import config from '../config.js';
+import config from '../config/config.js';
 
 export default class Controller {
   constructor(service) {

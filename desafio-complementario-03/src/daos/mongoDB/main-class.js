@@ -1,5 +1,5 @@
 import { developmentLogger, productionLogger } from '../../utils/loggers.js';
-import config from '../../config.js';
+import config from '../../config/config.js';
 
 export default class MainClass {
   constructor(model) {

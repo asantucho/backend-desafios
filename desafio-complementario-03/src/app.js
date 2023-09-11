@@ -5,18 +5,19 @@ import config from './config/config.js';
 import { __dirname } from './utils/utils.js';
 import { init as initSocket } from './socket.js';
 import MessageServices from './services/messages-services.js';
-import './lib/database/database.js';
+import './database/database.js';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import mainRouter from './routers/main-routers.js';
 import './lib/jwt/jwt.js';
 import { developmentLogger, productionLogger } from './utils/loggers.js';
+import { connectionString } from './database/database.js';
 //import { errorHandler } from './lib/middlewares/errorHandler.js';
 
 const storeOptions = {
   store: MongoStore.create({
-    mongoUrl: config.MONGO_URL,
+    mongoUrl: connectionString,
     crypto: {
       secret: config.SECRET_KEY,
     },
@@ -46,7 +47,7 @@ app.use('/api', mainRouter);
 const ENV = config.ENV;
 const PORT = config.PORT;
 
-const httpServer = app.listen(8080, () => {
+const httpServer = app.listen(PORT, () => {
   if (ENV === 'DEV') {
     developmentLogger.info(`Server is running on port ${PORT}`);
   }
