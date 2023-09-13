@@ -14,9 +14,21 @@ userRouter.get(
   userController.profile
 );
 
-userRouter.post('/forgot-password', userController.forgotPassword);
-userRouter.post('/reset-password', userController.resetPassword);
-userRouter.post('/generate-reset-link', userController.generateResetLink);
+userRouter.post(
+  '/forgot-password',
+  passport.authenticate('jwtCookies', { session: false }),
+  userController.forgotPassword
+);
+userRouter.post(
+  '/reset-password',
+  passport.authenticate('jwtCookies', { session: false }),
+  userController.resetPassword
+);
+userRouter.post(
+  '/generate-reset-link',
+  passport.authenticate('jwtCookies', { session: false }),
+  userController.generateResetLink
+);
 
 userRouter.get('/:email', userController.getByEmail);
 
