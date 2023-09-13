@@ -9,4 +9,5 @@ export default {
   ENV: process.env.ENV,
   EMAIL: process.env.EMAIL,
   PASSWORD: process.env.PASSWORD,
+  BASE_URL: process.env.BASE_URL || 'http://localhost:8080',
 };

@@ -26,3 +26,31 @@ export const sendEmail = async (user) => {
     console.log(error.message);
   }
 };
+
+export const sendPasswordResetEmail = async (email, resetToken) => {
+  try {
+    const gmailOptions = {
+      from: config.EMAIL,
+      to: email,
+      subject: 'Reset Your Password',
+      html: `
+        <p>Dear User,</p>
+        <p>To reset your password, please click the following link:</p>
+        <a href="${config.BASE_URL}/reset-password?token=${resetToken}">Reset Password</a>
+        <p>This link will expire in 1 hour.</p>
+        <p>If you did not request this password reset, please ignore this email.</p>
+        <p>Best regards,</p>
+        <p>Your Website Team</p>
+      `,
+    };
+
+    await transporter.sendMail(gmailOptions);
+    console.log('Correo de restablecimiento de contraseña enviado a:', email);
+  } catch (error) {
+    console.error(
+      'Error al enviar el correo de restablecimiento de contraseña:',
+      error.message
+    );
+    throw error;
+  }
+};

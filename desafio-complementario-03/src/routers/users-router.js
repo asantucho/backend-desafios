@@ -13,6 +13,11 @@ userRouter.get(
   passport.authenticate('jwtCookies'),
   userController.profile
 );
+
+userRouter.post('/forgot-password', userController.forgotPassword);
+userRouter.post('/reset-password', userController.resetPassword);
+userRouter.post('/generate-reset-link', userController.generateResetLink);
+
 userRouter.get('/:email', userController.getByEmail);
 
 userRouter.get('/', userController.getAll);
