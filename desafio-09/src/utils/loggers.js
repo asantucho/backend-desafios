@@ -40,7 +40,6 @@ export const developmentLogger = winston.createLogger({
     })
   ),
   transports,
-  level: 'debug',
 });
 
 export const productionLogger = winston.createLogger({
@@ -52,5 +51,4 @@ export const productionLogger = winston.createLogger({
       level: 'error',
     }),
   ],
-  level: 'info',
 });
